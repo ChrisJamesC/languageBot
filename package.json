@@ -1,0 +1,31 @@
+{
+  "name": "language-bot",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Christopher Chiche",
+  "main": "main.js",
+  "dependencies": {
+    "express": "~4.13.3",
+    "http-server": "^0.8.0",
+    "messenger-bot": "^2.2.0",
+    "npm": "~2.14.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud preview app deploy app.yaml",
+    "mocha": "mocha test/index.js -t 30000",
+    "lint": "semistandard \"**/*.js\"",
+    "test": "npm run lint && npm run mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/***/"
+  },
+  "license": "BSD 3.0",
+  "bugs": {
+    "url": "https://github.com/***/issues"
+  },
+  "homepage": "https://github.com/***"
+}
