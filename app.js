@@ -9,6 +9,37 @@ let bot = new Bot({
   app_secret: '7bae25c8323ee33dacc3ba946aa6ff06'
 })
 
+const levenshteinDistance = (s, t)  => {
+    if (!s.length) return t.length;
+    if (!t.length) return s.length;
+
+    return Math.min(
+        levenshteinDistance(s.substr(1), t) + 1,
+        levenshteinDistance(t.substr(1), s) + 1,
+        levenshteinDistance(s.substr(1), t.substr(1)) + (s[0] !== t[0] ? 1 : 0)
+    ) + 1;
+}
+
+const computeAnswer = (input) => {
+    const knownAnswers = {
+        "Hello": `Hi ${profile.first_name}, how are you doing?`, 
+        "Fine and you?": "Very well. Do you want to talk about politics or sports?", 
+        "Sports": "What's your favorite sport?", 
+        "I love soccer!": "Awesome, me too!", 
+        "Bye!": "You did very well today! See you tomorrow!"
+    }
+    let response = "I don't understand"; 
+    let responseDistance = 10;
+    for(candidate in knownAnswers) {
+        const distance = levenshteinDistance(candidate,input); 
+        if(distance<responseDistance) {
+            response = knownAnswers[candidate]; 
+            responseDistance = distance; 
+        }
+    }
+    return response;
+}
+
 bot.on('error', (err) => {
   console.log(err.message)
 })
@@ -20,19 +51,7 @@ bot.on('message', (payload, reply) => {
     if (err) {
         throw err
     }
-    const knownAnswers = {
-        "Hello": `Hi ${profile.first_name}, how are you doing?`, 
-        "Fine and you?": "Very well. Do you want to talk about politics or sports?", 
-        "Sports": "What's your favorite sport?", 
-        "I love soccer!": "Awesome, me too!", 
-        "Bye!": "You did very well today! See you tomorrow!"
-    }
-
-    let answer = "Sorry, I didn't understand"
-
-    if(text in knownAnswers) {
-        answer = knownAnswers[text];      
-    }
+    let answer = computeAnswer(text)
 
     setTimeout(() => reply({ text: answer }, (err) => {
       if (err) {
