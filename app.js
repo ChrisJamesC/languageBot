@@ -4,9 +4,9 @@ const http = require('http')
 const Bot = require('messenger-bot')
 
 let bot = new Bot({
-  token: 'PAGE_TOKEN',
-  verify: 'VERIFY_TOKEN',
-  app_secret: 'APP_SECRET'
+  token: 'EAADGpoZCyCRcBAOZA2i9FsMiY1wVHbM22jGZBGQJ2OFkAJlwdJUHe5LCwQkoDoI2oBF8L0kVQ7hq9OQwUmIZA9rFhQ8ZARgJhZBWzKpaKoBFxaSakC8d39EappYPJCLoEhZBZAtZAZAqCNl5RMk6OgnAyzlQe4ZCFgxcDRecw0iOHjeBgZDZD',
+  verify: 'bobisawesome',
+  app_secret: '7bae25c8323ee33dacc3ba946aa6ff06'
 })
 
 bot.on('error', (err) => {
@@ -27,5 +27,6 @@ bot.on('message', (payload, reply) => {
   })
 })
 
-http.createServer(bot.middleware()).listen(3000)
-console.log('Echo bot server running at port 3000.')
+const port = process.env.PORT || 5000
+http.createServer(bot.middleware()).listen(port)
+console.log('Echo bot server running at port '+port)
