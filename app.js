@@ -20,7 +20,7 @@ const levenshteinDistance = (s, t)  => {
     ) + 1;
 }
 
-const computeAnswer = (input) => {
+const computeAnswer = (input, profile) => {
     const knownAnswers = {
         "Hello": `Hi ${profile.first_name}, how are you doing?`, 
         "Fine and you?": "Very well. Do you want to talk about politics or sports?", 
@@ -51,7 +51,7 @@ bot.on('message', (payload, reply) => {
     if (err) {
         throw err
     }
-    let answer = computeAnswer(text)
+    let answer = computeAnswer(text,profile);
 
     setTimeout(() => reply({ text: answer }, (err) => {
       if (err) {
