@@ -38,7 +38,7 @@ bot.on('message', (payload, reply) => {
     }
 
     console.log("ANSWER: "+answer)
-    reply({ answer }, (err) => {
+    reply({ text }, (err) => {
       if (err) {
     
         console.log(err)
