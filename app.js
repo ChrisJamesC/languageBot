@@ -65,26 +65,32 @@ var levDist = function(s, t) {
 
 const computeAnswer = (input, profile) => {
     const knownAnswers = {
-        "Hello": `Hello ${profile.first_name}, how are you?`, 
-        "Hi": `Hi ${profile.first_name}, how are you?`, 
-        "Fine and you?": "Very well. What do you want to talk about? News? Sports? Politics? Love?", 
-        "Fine thanks.": "What do you want to talk about? News? Sports? Politics? Love?", 
-        "News": "Ok. What do you think about global warming?", 
-        "Sports": "What's your favorite sport?", 
-        "Love": "How would you describe the ideal partner?", 
-        "I love soccer": "Awesome, me too!", 
-        "I love football": "Awesome, me too!", 
-        "I love tennis": "Awesome, me too!", 
-        "Yes": "Cool, please give me your e-mail and I will send them to you right away."
+        "hello": `Hello ${profile.first_name}, how are you?`, 
+        "hi": `Hi ${profile.first_name}, how are you?`, 
+        "fine and you?": "Very well. What do you want to talk about? News? Sports? Politics? Love?", 
+        "fine thanks.": "What do you want to talk about? News? Sports? Politics? Love?", 
+        "news": "Ok. What do you think about global warming?", 
+        "sports": "What's your favorite sport?", 
+        "love": "How would you describe the ideal partner?", 
+        "soccer": "Awesome, me too! why?", 
+        "football": "Awesome, me too! why?", 
+        "tennis": "Awesome, me too! why?", 
+        "bye!": "Would you like to have some feedback about your mistakes and writing skills?"
+        "yes": "Cool, please give me your e-mail and I will send them to you right away.",
+        "no": "Ok, it was great talking to you!\n Please visit www.lingobot.co for more information."
     }
 	if(input.indexOf("@")>0){
 		return "Thanks a lot! Please visit www.lingobot.co for more information.";
 	}
 	else {
+        input = input.toLowerCase();
 		let key = ""
 		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
 		let responseDistance = 10;
 		for(let candidate in knownAnswers) {
+            if(input.indexOf(candidate)>0) {
+                return knownAnswers[candidate]; 
+            }
 			const distance = levDist(candidate,input); 
 			if(distance<responseDistance) {
 				key = candidate;
