@@ -106,7 +106,7 @@ const computeAnswer = (input, profile) => {
             responseDistance = distance; 
         }
     }
-    if(distance>0 && key.length>0) {
+    if(responseDistance>0 && key.length>0) {
         response = "Did you mean: "+key+"\n"+response;
     }
     return response;
