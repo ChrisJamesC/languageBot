@@ -33,7 +33,7 @@ bot.on('message', (payload, reply) => {
         answer = knownAnswers[text];      
     }
 
-    reply({ text }, (err) => {
+    reply({ answer }, (err) => {
       if (err) throw err
 
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
