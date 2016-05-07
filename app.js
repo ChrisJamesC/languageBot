@@ -16,6 +16,7 @@ bot.on('error', (err) => {
 
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
+  console.log("INPUT"+text)
   console.log(text)
   bot.getProfile(payload.sender.id, (err, profile) => {
     console.log(err)
