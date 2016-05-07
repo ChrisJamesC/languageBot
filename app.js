@@ -34,14 +34,14 @@ bot.on('message', (payload, reply) => {
         answer = knownAnswers[text];      
     }
 
-    setTimeout(() => {reply({ text: answer }, (err) => {
+    setTimeout(() => reply({ text: answer }, (err) => {
       if (err) {
     
         throw err
       }
 
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-    }}, 3000)
+    }), 3000)
   })
 })
 
