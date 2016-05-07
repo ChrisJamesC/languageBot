@@ -77,7 +77,7 @@ const computeAnswer = (input, profile) => {
         "I love tennis": "Awesome, me too!", 
         "Yes": "Cool, please give me your e-mail and I will send them to you right away."
     }
-	if(input.indexOf("@")){
+	if(input.indexOf("@")>0){
 		return "Thanks a lot! Please visit www.lingobot.co for more information.";
 	}
 	else {
