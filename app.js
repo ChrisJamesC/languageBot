@@ -16,10 +16,7 @@ bot.on('error', (err) => {
 
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
-  console.log("INPUT"+text)
-  console.log(text)
   bot.getProfile(payload.sender.id, (err, profile) => {
-    console.log(err)
     if (err) {
         throw err
     }
@@ -37,17 +34,14 @@ bot.on('message', (payload, reply) => {
         answer = knownAnswers[text];      
     }
 
-    console.log("ANSWER: "+answer)
-    
-    reply({ text: answer }, (err) => {
+    setTimeout(() => {reply({ text: answer }, (err) => {
       if (err) {
     
-        console.log(err)
         throw err
       }
 
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-    })
+    }}, 3000)
   })
 })
 
