@@ -53,14 +53,14 @@ bot.on('message', (payload, reply) => {
     }
     let answer = computeAnswer(text,profile);
 
-    setTimeout(() => reply({ text: answer }, (err) => {
+    reply({ text: answer }, (err) => {
       if (err) {
     
         throw err
       }
 
-      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-    }), 1000)
+      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: answer}`)
+    })
   })
 })
 
