@@ -75,7 +75,7 @@ const computeAnswer = (input, profile) => {
         "soccer": "Awesome, me too! why?", 
         "football": "Awesome, me too! why?", 
         "tennis": "Awesome, me too! why?", 
-        "bye!": "Would you like to have some feedback about your mistakes and writing skills?"
+        "bye!": "Would you like to have some feedback about your mistakes and writing skills?",
         "yes": "Cool, please give me your e-mail and I will send them to you right away.",
         "no": "Ok, it was great talking to you!\n Please visit www.lingobot.co for more information."
     }
