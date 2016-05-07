@@ -95,14 +95,19 @@ const computeAnswer = (input, profile) => {
         "I love soccer!": "Awesome, me too!", 
         "Bye!": "You did very well today! See you tomorrow!"
     }
+    let key = ""
     let response = "I don't understand"; 
     let responseDistance = 10;
     for(let candidate in knownAnswers) {
         const distance = levDist(candidate,input); 
         if(distance<responseDistance) {
+            key = candidate;
             response = knownAnswers[candidate]; 
             responseDistance = distance; 
         }
+    }
+    if(distance>0 && key.length>0) {
+        response = "Did you mean: "+key+"\n"+response;
     }
     return response;
 }
