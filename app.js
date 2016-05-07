@@ -11,30 +11,6 @@ let bot = new Bot({
 
 const maxDistance = 3; 
 
-const distanceWithCache = (ss,tt) => {
-    let cache = {}
-    const levenshteinDistance = (s, t)  => {
-        if(s in cache && t in cache[s]) return cache[s][t]; 
-        if(t in cache && s in cache[t]) return cache[t][s]; 
-
-        let res = 0; 
-        if (!s.length) res = t.length;
-        else if (!t.length) res = s.length;
-        else res = Math.min(
-            levenshteinDistance(s.substr(1), t) + 1,
-            levenshteinDistance(t.substr(1), s) + 1,
-            levenshteinDistance(s.substr(1), t.substr(1)) + (s[0] !== t[0] ? 1 : 0)
-        ) + 1;
-
-        if(!(s in cache)) {
-            cache[s] = {}
-        }
-        cache[s][t] = res; 
-        return res; 
-    }
-    return levenshteinDistance(ss,tt)
-}
-
 //http://www.merriampark.com/ld.htm, http://www.mgilleland.com/ld/ldjavascript.htm, Damerau–Levenshtein distance (Wikipedia)
 var levDist = function(s, t) {
     var d = []; //2d matrix
@@ -136,13 +112,11 @@ bot.on('message', (payload, reply) => {
         throw err
     }
     let answer = computeAnswer(text,profile);
-
     reply({ text: answer }, (err) => {
       if (err) {
     
         throw err
       }
-
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${answer}`)
     })
   })
