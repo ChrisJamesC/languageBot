@@ -88,7 +88,7 @@ const computeAnswer = (input, profile) => {
 		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
 		let responseDistance = 10;
 		for(let candidate in knownAnswers) {
-            if(input.indexOf(candidate)>0) {
+            if(input.indexOf(candidate+" ")>0) {
                 return knownAnswers[candidate]; 
             }
 			const distance = levDist(candidate,input); 
