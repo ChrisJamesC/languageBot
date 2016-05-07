@@ -30,7 +30,7 @@ const computeAnswer = (input, profile) => {
     }
     let response = "I don't understand"; 
     let responseDistance = 10;
-    for(candidate in knownAnswers) {
+    for(let candidate in knownAnswers) {
         const distance = levenshteinDistance(candidate,input); 
         if(distance<responseDistance) {
             response = knownAnswers[candidate]; 
