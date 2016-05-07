@@ -59,7 +59,7 @@ bot.on('message', (payload, reply) => {
         throw err
       }
 
-      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: answer}`)
+      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${answer}`)
     })
   })
 })
