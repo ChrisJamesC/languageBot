@@ -89,27 +89,39 @@ var levDist = function(s, t) {
 
 const computeAnswer = (input, profile) => {
     const knownAnswers = {
-        "Hello": `Hi ${profile.first_name}, how are you doing?`, 
-        "Fine and you?": "Very well. Do you want to talk about politics or sports?", 
+        "Hello": `Hello ${profile.first_name}, how are you?`, 
+        "Hi": `Hi ${profile.first_name}, how are you?`, 
+        "Fine and you?": "Very well. What do you want to talk about? News? Sports? Politics? Love?", 
+        "Fine thanks.": "What do you want to talk about? News? Sports? Politics? Love?", 
+        "News": "Ok. What do you think about global warming?", 
         "Sports": "What's your favorite sport?", 
-        "I love soccer!": "Awesome, me too!", 
-        "Bye!": "You did very well today! See you tomorrow!"
+        "Love": "How would you describe the ideal partner?", 
+        "I love soccer": "Awesome, me too!", 
+        "I love football": "Awesome, me too!", 
+        "I love tennis": "Awesome, me too!", 
+        "Yes": "Cool, please give me your e-mail and I will send them to you right away."
     }
-    let key = ""
-    let response = "I don't understand"; 
-    let responseDistance = 10;
-    for(let candidate in knownAnswers) {
-        const distance = levDist(candidate,input); 
-        if(distance<responseDistance) {
-            key = candidate;
-            response = knownAnswers[candidate]; 
-            responseDistance = distance; 
-        }
-    }
-    if(responseDistance>0 && key.length>0) {
-        response = "Did you mean: "+key+"\n"+response;
-    }
-    return response;
+	if(answer.indexOf("@")){
+		return "Thanks a lot! Please visit www.lingobot.co for more information.";
+	}
+	else {
+		let key = ""
+		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
+		let responseDistance = 10;
+		for(let candidate in knownAnswers) {
+			const distance = levDist(candidate,input); 
+			if(distance<responseDistance) {
+				key = candidate;
+				response = knownAnswers[candidate]; 
+				responseDistance = distance; 
+			}
+		}
+		if(responseDistance>0 && key.length>0) {
+			response = "I understood: \""+key+"\"\n"+response;
+		}
+		return response;
+	}
+
 }
 
 bot.on('error', (err) => {
