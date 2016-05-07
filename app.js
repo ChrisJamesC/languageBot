@@ -13,13 +13,25 @@ bot.on('error', (err) => {
   console.log(err.message)
 })
 
+
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
-  console.log("MESSAGE RECEIVED!")
-  console.log(text)
 
   bot.getProfile(payload.sender.id, (err, profile) => {
     if (err) throw err
+    const knownAnswers = {
+        "Hello": `Hi ${profile.first_name}, how are you doing?`, 
+        "Fine and you?": "Very well. Do you want to talk about politics or sports?", 
+        "Sports": "What's your favorite sport?", 
+        "I love soccer!": "Awesome, me too!", 
+        "Bye!": "You did very well today! See you tomorrow!"
+    }
+
+    let answer = "Sorry, I didn't understand"
+
+    if(text in knownAnswers) {
+        answer = knownAnswers[text];      
+    }
 
     reply({ text }, (err) => {
       if (err) throw err
