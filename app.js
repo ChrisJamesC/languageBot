@@ -84,7 +84,7 @@ const computeAnswer = (input, profile) => {
 	}
 	else {
         input = input.toLowerCase();
-		let key = ""
+		let key = "";
 		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
 		let responseDistance = 10;
 		for(let candidate in knownAnswers) {
