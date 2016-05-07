@@ -41,7 +41,7 @@ bot.on('message', (payload, reply) => {
       }
 
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-    }), 3000)
+    }), 1000)
   })
 })
 
