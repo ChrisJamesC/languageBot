@@ -71,7 +71,7 @@ const buttonMessage = (message, options) => ({
       "template_type":"button",
       "text": message,
       "buttons":options.map(d=> ({
-        "type":"postbacki",
+        "type":"postback",
         "title":d.t,
         "payload":d.p
       }))
@@ -134,7 +134,7 @@ bot.on('message', (payload, reply) => {
     reply(answer, (err) => {
       if (err) {
         console.log(answer)
-    
+        console.log(answer.attachement.payload.buttons)
         throw err
       }
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${answer}`)
