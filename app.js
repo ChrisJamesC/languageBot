@@ -87,7 +87,7 @@ const computeAnswer = (input, profile) => {
        //"Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
        //"Sports": textMessage("What’s your favorite sport?"), 
        'I like “Fußball”': textMessage('"Fußball" is "Football" in English'), 
-       "I have to go, bye!": textMessage("Do you want to receive advanced feedback for 1CHF a month?\n| Yes | No |"),  
+       "I have to go, bye!": buttonMessage("Do you want to receive advanced feedback for 1CHF a month?\n",[{t:"Yes",p:"subscriptionYes"},{t:"No","p":"none"}]),  
        "Yes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!")
     }
 	if(input.indexOf("@")>0){
@@ -145,6 +145,7 @@ bot.on('postback', (payload,reply) => {
    const responses = {
       "correctionOK": buttonMessage("Cool. What do you want to talk about today?" ,[{t:"Sports", p: "sports"}, {t:"News", p:"none"}, {t:"Famous People", p:"none"}]),
       "sports": textMessage("What’s your favorite sport?"), 
+      "subscriptionYes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\n  Vocabulary: 50%\n  Grammar: 30%\n  Puncuation: 10%"),
       "none": textMessage("Sorry I didn't understand")
    }
    let response = responses.none
