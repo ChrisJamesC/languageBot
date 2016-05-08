@@ -84,8 +84,8 @@ const computeAnswer = (input, profile) => {
     const knownAnswers = {
        "Hello": textMessage("How are you doing?"), 
        "I am do well, thanks!": buttonMessage("Did you mean “doing well?", [{t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}]),
-       "Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
-       "Sports": textMessage("What’s your favorite sport?"), 
+       //"Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
+       //"Sports": textMessage("What’s your favorite sport?"), 
        'I like “Fußball”': textMessage('"Fußball" is "Football" in English'), 
        "I have to go, bye!": textMessage("Do you want to receive advanced feedback for 1CHF a month?\n| Yes | No |"),  
        "Yes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!")
@@ -142,7 +142,16 @@ bot.on('message', (payload, reply) => {
 })
 
 bot.on('postback', (payload,reply) => {
-   reply({text: payload}, (err) => {
+   const responses = {
+      "correctionOK": buttonMessage("Cool. What do you want to talk about today?" ,[{t:"Sports", p: "sports"}, {t:"News", p:"none"}, {t:"Famous People", p:"none"}]),
+      "sports": textMessage("What’s your favorite sport?"), 
+      "none": textMessage("Sorry I didn't understand")
+   }
+   let response = responses.none
+   if(payload.postback.payload in responses) {
+     response = responses[payload.postback.payload]; 
+   } 
+   reply(response, (err) => {
        if(err) {
          console.log('error sending')
          console.log(payload)
