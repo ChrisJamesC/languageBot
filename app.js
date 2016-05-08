@@ -64,6 +64,7 @@ var levDist = function(s, t) {
 }
 
 const computeAnswer = (input, profile) => {
+    /*
     const knownAnswers = {
         "hello": `Hello ${profile.first_name}, how are you?`, 
         "hi": `Hi ${profile.first_name}, how are you?`, 
@@ -78,6 +79,15 @@ const computeAnswer = (input, profile) => {
         "bye!": "Would you like to have some feedback about your mistakes and writing skills?",
         "yes": "Cool, please give me your e-mail and I will send them to you right away.",
         "no": "Ok, it was great talking to you!\n Please visit www.lingobot.co for more information."
+    }*/ 
+    const welcomeMessage = "Hello ${profile.first_name}, welcome on LingoBot!\nHow are you doing";
+    const knownAnswers = {
+       "I am do well thanks!": "Did you mean “doing well?\n| Yes | No |",
+       "Yes":" Cool. What do you want to talk about today?\n| Sports | News | Famous People |",
+       "Sports": "What’s your favorite sport?", 
+       'I like “Fußball”': '"Fußball" is "Football" in English', 
+       "I have to go, bye!": "Do you want to receive advanced feedback for 1CHF a month?\n| Yes | No |",  
+       "Yes": "Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!"
     }
 	if(input.indexOf("@")>0){
 		return "Thanks a lot! Please visit www.lingobot.co for more information.";
