@@ -9,7 +9,7 @@ let bot = new Bot({
   app_secret: '7bae25c8323ee33dacc3ba946aa6ff06'
 })
 
-const maxDistance = 3; 
+const maxDistance = 10; 
 
 //http://www.merriampark.com/ld.htm, http://www.mgilleland.com/ld/ldjavascript.htm, Damerau–Levenshtein distance (Wikipedia)
 var levDist = function(s, t) {
@@ -84,8 +84,6 @@ const computeAnswer = (input, profile) => {
     const knownAnswers = {
        "Hello": textMessage("How are you doing?"), 
        "I am do well, thanks!": buttonMessage('Did you mean "doing well"?', [{t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}]),
-       //"Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
-       //"Sports": textMessage("What’s your favorite sport?"), 
        'I like “Fußball”': textMessage('"Fußball" is "Football" in English'), 
        "I have to go, bye!": buttonMessage("Do you want to receive advanced feedback for 1CHF a month?\n",[{t:"Yes",p:"subscriptionYes"},{t:"No","p":"none"}]),  
        "Yes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!")
@@ -109,11 +107,6 @@ const computeAnswer = (input, profile) => {
 				responseDistance = distance; 
 			}
 		}
-        /*
-		if(responseDistance>0 && key.length>0) {
-			response = "I understood: \""+key+"\"\n"+response;
-		}
-        */
 		return response;
 	}
 
