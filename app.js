@@ -123,7 +123,6 @@ bot.on('error', (err) => {
   console.log(err.message)
 })
 
-
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
   bot.getProfile(payload.sender.id, (err, profile) => {
@@ -142,6 +141,14 @@ bot.on('message', (payload, reply) => {
   })
 })
 
+bot.on('postback', (payload,reply) => {
+   reply({text: payload}, (err) => {
+       if(err) {
+         console.log('error sending')
+         console.log(payload)
+       }
+   })
+})
 const port = process.env.PORT || 5000
 http.createServer(bot.middleware()).listen(port)
 console.log('Echo bot server running at port '+port)
