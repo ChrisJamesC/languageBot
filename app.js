@@ -131,8 +131,9 @@ bot.on('message', (payload, reply) => {
         throw err
     }
     let answer = computeAnswer(text,profile);
-    reply({ text: answer }, (err) => {
+    reply(answer, (err) => {
       if (err) {
+
     
         throw err
       }
