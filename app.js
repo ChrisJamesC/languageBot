@@ -63,38 +63,39 @@ var levDist = function(s, t) {
     return d[n][m];
 }
 
+const textMessage = message => ({"text": message})
+const buttonMessage = (message, options) => ({
+  "attachment":{
+    "type":"template",
+    "payload":{
+      "template_type":"button",
+      "text": message,
+      "buttons":options.map(d=> ({
+        "type":"postbacki",
+        "title":d.t,
+        "payload":d.p
+      }))
+    }
+  }
+})
+
 const computeAnswer = (input, profile) => {
-    /*
-    const knownAnswers = {
-        "hello": `Hello ${profile.first_name}, how are you?`, 
-        "hi": `Hi ${profile.first_name}, how are you?`, 
-        "fine and you?": "Very well. What do you want to talk about? News? Sports? Relationships?", 
-        "fine thanks.": "What do you want to talk about? News? Sports? Relationships?", 
-        "news": "Ok. What do you think about global warming?", 
-        "sports": "What's your favorite sport?", 
-        "relationships": "How would you describe the ideal partner?", 
-        "soccer": "Awesome, me too! why?", 
-        "football": "Awesome, me too! why?", 
-        "tennis": "Awesome, me too! why?", 
-        "bye!": "Would you like to have some feedback about your mistakes and writing skills?",
-        "yes": "Cool, please give me your e-mail and I will send them to you right away.",
-        "no": "Ok, it was great talking to you!\n Please visit www.lingobot.co for more information."
-    }*/ 
     const welcomeMessage = "Hello ${profile.first_name}, welcome on LingoBot!\nHow are you doing";
     const knownAnswers = {
-       "I am do well thanks!": "Did you mean “doing well?\n| Yes | No |",
-       "Yes":" Cool. What do you want to talk about today?\n| Sports | News | Famous People |",
-       "Sports": "What’s your favorite sport?", 
-       'I like “Fußball”': '"Fußball" is "Football" in English', 
-       "I have to go, bye!": "Do you want to receive advanced feedback for 1CHF a month?\n| Yes | No |",  
-       "Yes": "Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!"
+       "Hello": textMessage("How are you doing?"), 
+       "I am do well, thanks!": buttonMessage("Did you mean “doing well?", {t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}),
+       "Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
+       "Sports": textMessage("What’s your favorite sport?"), 
+       'I like “Fußball”': textMessage('"Fußball" is "Football" in English'), 
+       "I have to go, bye!": textMessage("Do you want to receive advanced feedback for 1CHF a month?\n| Yes | No |"),  
+       "Yes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!")
     }
 	if(input.indexOf("@")>0){
 		return "Thanks a lot! Please visit www.lingobot.co for more information.";
 	}
 	else {
         input = input.toLowerCase();
-		let key = "";
+		// let key = "";
 		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
 		let responseDistance = 10;
 		for(let candidate in knownAnswers) {
@@ -103,14 +104,16 @@ const computeAnswer = (input, profile) => {
             }
 			const distance = levDist(candidate,input); 
 			if(distance<responseDistance) {
-				key = candidate;
+				//key = candidate;
 				response = knownAnswers[candidate]; 
 				responseDistance = distance; 
 			}
 		}
+        /*
 		if(responseDistance>0 && key.length>0) {
 			response = "I understood: \""+key+"\"\n"+response;
 		}
+        */
 		return response;
 	}
 
