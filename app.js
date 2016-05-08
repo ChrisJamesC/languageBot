@@ -83,7 +83,7 @@ const computeAnswer = (input, profile) => {
     const welcomeMessage = "Hello ${profile.first_name}, welcome on LingoBot!\nHow are you doing";
     const knownAnswers = {
        "Hello": textMessage("How are you doing?"), 
-       "I am do well, thanks!": buttonMessage('Did you mean "doing well?"', [{t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}]),
+       "I am do well, thanks!": buttonMessage('Did you mean "doing well"?', [{t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}]),
        //"Yes": textMessage("Cool. What do you want to talk about today?\n| Sports | News | Famous People |"),
        //"Sports": textMessage("What’s your favorite sport?"), 
        'I like “Fußball”': textMessage('"Fußball" is "Football" in English'), 
