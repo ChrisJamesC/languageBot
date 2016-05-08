@@ -91,12 +91,12 @@ const computeAnswer = (input, profile) => {
        "Yes": textMessage("Here are your biggest mistakes\nI do well -> I am doing well\nRepartition of mistakes\nPHOTO!")
     }
 	if(input.indexOf("@")>0){
-		return "Thanks a lot! Please visit www.lingobot.co for more information.";
+		return textMessage("Thanks a lot! Please visit www.lingobot.co for more information.");
 	}
 	else {
         input = input.toLowerCase();
 		// let key = "";
-		let response = "Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"; 
+		let response = textMessage("Sorry I have to go now. Would you like to have some feedback about your mistakes and writing skills?"); 
 		let responseDistance = 10;
 		for(let candidate in knownAnswers) {
             if(input.indexOf(candidate+" ")>0) {
