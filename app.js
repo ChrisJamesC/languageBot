@@ -133,7 +133,7 @@ bot.on('message', (payload, reply) => {
     let answer = computeAnswer(text,profile);
     reply(answer, (err) => {
       if (err) {
-
+        console.log(answer)
     
         throw err
       }
