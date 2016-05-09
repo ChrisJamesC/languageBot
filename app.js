@@ -21,7 +21,8 @@ const computeAnswer = (input, profile) => {
        'I like “Fußball”': ANS.FUSSBALL, 
        "I have to go, bye!": ANS.FEEDBACK_Q,  
        "yes": ANS.WE_AGREE, 
-       "no": ANS.WHY_NOT
+       "no": ANS.WHY_NOT,
+       "bye": ANS.BYE,
     }
 	if(input.indexOf("@")>0){
 		return ANS.BYE;
