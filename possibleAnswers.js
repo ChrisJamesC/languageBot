@@ -19,7 +19,7 @@ const buttonMessage = (message, options) => ({
 
 module.exports = {
   GREETINGS: textMessage("How are you doing?"), 
-  DO_WELL:  buttonMessage('Did you mean "doing well"?', [{t:"Yes", p: "correctionOK"}, {t:"No", p:"none"}]),
+  DO_WELL:  buttonMessage('Did you mean "doing well"?', [{t:"Yes", p: "correctionOK"}, {t:"No", p:"correctionBad"}]),
   FUSSBALL: textMessage('"Fußball" is "Football" in English'), 
   FEEDBACK_Q: buttonMessage("Do you want to receive advanced feedback for 1CHF a month?\n",[{t:"Yes",p:"subscriptionYes"},{t:"No","p":"none"}]),  
   FEEDBACK_R: textMessage("Here are your major areas of improvement\nI do well -> I am doing well\nRepartition per mistakes\n  Vocabulary: 50%\n  Grammar: 30%\n  Puncuation: 10%"),

@@ -20,6 +20,8 @@ const computeAnswer = (input, profile) => {
        "I am do well, thanks!": ANS.DO_WELL,
        'I like “Fußball”': ANS.FUSSBALL, 
        "I have to go, bye!": ANS.FEEDBACK_Q,  
+       "yes": ANS.WE_AGREE, 
+       "no": ANS.WHY_NOT
     }
 	if(input.indexOf("@")>0){
 		return ANS.BYE;
@@ -67,8 +69,12 @@ bot.on('message', (payload, reply) => {
 bot.on('postback', (payload,reply) => {
    const responses = {
       "correctionOK": ANS.CONV_SUBJECT,
+      "correctionBad": ANS.CONV_SUBJECT,
       "sports": ANS.SPORT_Q, 
+      "news": ANS.NEWS_Q, 
+      "famousPeople": ANS.FAMOUS_PEOPLE_Q,
       "subscriptionYes": ANS.FEEDBACK_R,
+      "subscriptionNo": ANS.BYE,
       "none": ANS.DUMB
    }
    let response = responses.none;
