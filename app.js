@@ -12,24 +12,6 @@ let bot = new Bot({
   app_secret: '7bae25c8323ee33dacc3ba946aa6ff06'
 });
 
-// Generate a text message
-const textMessage = message => ({"text": message});
-
-// Generate a message with postback buttons 
-const buttonMessage = (message, options) => ({
-  "attachment":{
-    "type":"template",
-    "payload":{
-      "template_type":"button",
-      "text": message,
-      "buttons":options.map(d=> ({
-        "type":"postback",
-        "title":d.t,
-        "payload":d.p
-      }))
-    }
-  }
-});
 
 // Compute the best possible answer given an input 
 const computeAnswer = (input, profile) => {
@@ -85,7 +67,7 @@ bot.on('message', (payload, reply) => {
 bot.on('postback', (payload,reply) => {
    const responses = {
       "correctionOK": ANS.CONV_SUBJECT,
-      "sports": ANS.SPORTS_Q, 
+      "sports": ANS.SPORT_Q, 
       "subscriptionYes": ANS.FEEDBACK_R,
       "none": ANS.DUMB
    }
