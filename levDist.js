@@ -2,7 +2,7 @@
 
 // http://www.merriampark.com/ld.htm, http://www.mgilleland.com/ld/ldjavascript.htm, Damerau–Levenshtein distance (Wikipedia)
 // Compute the distance between 2 strings. 
-exports = function(s, t) {
+module.exports = function(s, t) {
     var d = []; //2d matrix
 
     // Step 1
