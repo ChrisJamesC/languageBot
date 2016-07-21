@@ -92,11 +92,14 @@ const sendFeedback = (response, reply) =>  {
    }
    const questionId = parseInt(arr[0]);
    const answerId = parseInt(arr[1]);
+   console.log("Response: "+response);
+   console.log("questionId: "+questionId);
+   console.log("questions: "+questions);
    const question = questions[questionId];
-   const correct = question.answer===answer;
+   const correct = question.correct===answer;
    const message = correct?
         textMessage("You are correct.")
-       :textMessage("You are wrong. The correct answer was "+question.answers[question.answer]+".");
+       :textMessage("You are wrong. The correct answer was "+question.answers[question.correct]+".");
 
    reply(message, (err) => {
         if(err) {
