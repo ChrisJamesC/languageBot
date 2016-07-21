@@ -3,7 +3,8 @@
 const http = require('http');
 const Bot = require('messenger-bot');
 const levDist = require("./levDist");
-const ANS = require("./possibleAnswers");
+// const ANS = require("./possibleAnswers");
+const questions = require("./questionList").questions;
 
 // Define the facebook bot
 let bot = new Bot({
@@ -13,14 +14,14 @@ let bot = new Bot({
 });
 
 
-// Compute the best possible answer given an input 
+// Compute the best possible answer given an input
 const computeAnswer = (input, profile) => {
     const knownAnswers = {
-       "Hello": ANS.GREETINGS, 
+       "Hello": ANS.GREETINGS,
        "I am do well, thanks!": ANS.DO_WELL,
-       'I like “Fußball”': ANS.FUSSBALL, 
-       "I have to go, bye!": ANS.FEEDBACK_Q,  
-       "yes": ANS.WE_AGREE, 
+       'I like “Fußball”': ANS.FUSSBALL,
+       "I have to go, bye!": ANS.FEEDBACK_Q,
+       "yes": ANS.WE_AGREE,
        "no": ANS.WHY_NOT,
        "bye": ANS.BYE,
     }
@@ -29,16 +30,16 @@ const computeAnswer = (input, profile) => {
 	}
 	else {
         input = input.toLowerCase();
-		let response = ANS.DUMB; 
+		let response = ANS.DUMB;
 		let responseDistance = 15;
 		for(let candidate in knownAnswers) {
             if(input.indexOf(candidate+" ")>0) {
-                return knownAnswers[candidate]; 
+                return knownAnswers[candidate];
             }
-			const distance = levDist(candidate,input); 
+			const distance = levDist(candidate,input);
 			if(distance<responseDistance) {
-				response = knownAnswers[candidate]; 
-				responseDistance = distance; 
+				response = knownAnswers[candidate];
+				responseDistance = distance;
 			}
 		}
 		return response;
@@ -50,8 +51,44 @@ bot.on('error', (err) => {
   console.log("Error message from fb: "+err.message);
 });
 
+
+const buttonMessage = (message, options) => ({
+  "attachment":{
+    "type":"template",
+    "payload":{
+      "template_type":"button",
+      "text": message,
+      "buttons":options.map(d=> ({
+        "type":"postback",
+        "title":d.t,
+        "payload":d.p
+      }))
+    }
+  }
+});
+
+const getRandomQuestionId = () => Math.floor(Math.random()*questions.length);
+
+const sendQuestion = (reply) => {
+    const questionId = getRandomQuestionId();
+    const question = questions[questionId];
+    const message = buttonMessage(question.question,question.answers.map((a,i) => ({
+        text: question.question,
+        payload: {
+            qid: questionId,
+            aid: i
+        }
+    })));
+    reply(response, (err) => {
+        if(err) {
+          console.log('Postback error sending: '+payload);
+        }
+    });
+}
+
 // Handle text messages
 bot.on('message', (payload, reply) => {
+  /*
   bot.getProfile(payload.sender.id, (err, profile) => {
     if (err) {
         console.log("Error to get profile: "+err);
@@ -64,6 +101,8 @@ bot.on('message', (payload, reply) => {
       console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${answer}`)
     });
   });
+  */
+  sendResponse(reply);
 });
 
 // Handle postback messages
@@ -71,8 +110,8 @@ bot.on('postback', (payload,reply) => {
    const responses = {
       "correctionOK": ANS.CONV_SUBJECT,
       "correctionBad": ANS.CONV_SUBJECT,
-      "sports": ANS.SPORT_Q, 
-      "news": ANS.NEWS_Q, 
+      "sports": ANS.SPORT_Q,
+      "news": ANS.NEWS_Q,
       "famousPeople": ANS.FAMOUS_PEOPLE_Q,
       "subscriptionYes": ANS.FEEDBACK_R,
       "subscriptionNo": ANS.BYE,
@@ -80,8 +119,8 @@ bot.on('postback', (payload,reply) => {
    }
    let response = responses.none;
    if(payload.postback.payload in responses) {
-     response = responses[payload.postback.payload]; 
-   } 
+     response = responses[payload.postback.payload];
+   }
    reply(response, (err) => {
        if(err) {
          console.log('Postback error sending: '+payload);
