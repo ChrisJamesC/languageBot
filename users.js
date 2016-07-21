@@ -3,7 +3,7 @@
 let users = {};
 
 const add_user = userID => {
-    users.userID = {
+    users[userID] = {
         answers : []
     };
 }
