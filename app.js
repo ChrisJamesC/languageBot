@@ -66,6 +66,7 @@ const buttonMessage = (message, options) => ({
     }
   }
 });
+const textMessage = message => ({"text": message});
 
 const getRandomQuestionId = () => Math.floor(Math.random()*questions.length);
 
@@ -77,6 +78,27 @@ const sendQuestion = (reply) => {
         p: "${questionId}_${i}"
     })));
     reply(response, (err) => {
+        if(err) {
+          console.log('Postback error sending: '+payload);
+        }
+    });
+}
+
+const sendFeedback = (response, reply) =>  {
+   const arr = response.split("_");
+   if(arr.length<2) {
+       console.log("Error with response: "+response);
+       return;
+   }
+   const questionId = parseInt(arr[0]);
+   const answerId = parseInt(arr[1]);
+   const question = questions[questionId];
+   const correct = question.answer===answer;
+   const message = correct?
+        textMessage("You are correct.")
+       :textMessage("You are wrong. The correct answer was "+question.answers[question.answer]+".");
+
+   reply(message, (err) => {
         if(err) {
           console.log('Postback error sending: '+payload);
         }
@@ -116,7 +138,7 @@ bot.on('postback', (payload,reply) => {
       "none": ANS.DUMB
    }
    let response = responses.none;
-   if(payload.postback.payload in responses) {
+   if( in responses) {
      response = responses[payload.postback.payload];
    }
    reply(response, (err) => {
@@ -125,6 +147,8 @@ bot.on('postback', (payload,reply) => {
        }
    });
    */
+   const response = payload.postback.payload;
+   sendFeedback(response, reply);
    sendQuestion(reply);
 
 });
