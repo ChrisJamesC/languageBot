@@ -99,7 +99,7 @@ const sendFeedback = (userID, response, reply) =>  {
    const question = questions[questionId];
    const correct = question.correct===answerId;
    const message = correct?
-                textMessage("You are correct."):
+                textMessage("You are correct. 🎉"):
                 textMessage("You are wrong. The correct answer was "+question.answers[question.correct]+".");
 
     reply(message, (err) => {
