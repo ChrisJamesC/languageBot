@@ -23,7 +23,7 @@ const get_user_stats = userID => {
         const num_correct = answers.filter(a => a.isCorrect).length;
         const total = answers.length;
 
-        return "You answered correctly " + num_correct + " over " + total + " questions.";
+        return "You answered correctly " + num_correct + " questions out of " + total + ".";
 
     } else {
         return "";
