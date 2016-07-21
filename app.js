@@ -104,6 +104,7 @@ bot.on('message', (payload, reply) => {
 
 // Handle postback messages
 bot.on('postback', (payload,reply) => {
+    /*
    const responses = {
       "correctionOK": ANS.CONV_SUBJECT,
       "correctionBad": ANS.CONV_SUBJECT,
@@ -123,6 +124,9 @@ bot.on('postback', (payload,reply) => {
          console.log('Postback error sending: '+payload);
        }
    });
+   */
+   sendQuestion(reply);
+
 });
 
 const port = process.env.PORT || 5000;
