@@ -96,7 +96,7 @@ const sendFeedback = (response, reply) =>  {
    console.log("questionId: "+questionId);
    console.log("questions: "+questions);
    const question = questions[questionId];
-   const correct = question.correct===answer;
+   const correct = question.correct===answerId;
    const message = correct?
         textMessage("You are correct.")
        :textMessage("You are wrong. The correct answer was "+question.answers[question.correct]+".");
