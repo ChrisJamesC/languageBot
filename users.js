@@ -1,3 +1,5 @@
+"use strict";
+
 let users = {};
 
 const add_user = userID => {
