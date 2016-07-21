@@ -73,11 +73,8 @@ const sendQuestion = (reply) => {
     const questionId = getRandomQuestionId();
     const question = questions[questionId];
     const response = buttonMessage(question.question,question.answers.map((a,i) => ({
-        t: question.question,
-        p: {
-            qid: questionId,
-            aid: i
-        }
+        t: a,
+        p: "${questionId}_${i}"
     })));
     reply(response, (err) => {
         if(err) {
