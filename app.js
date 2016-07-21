@@ -72,7 +72,7 @@ const getRandomQuestionId = () => Math.floor(Math.random()*questions.length);
 const sendQuestion = (reply) => {
     const questionId = getRandomQuestionId();
     const question = questions[questionId];
-    const message = buttonMessage(question.question,question.answers.map((a,i) => ({
+    const response = buttonMessage(question.question,question.answers.map((a,i) => ({
         text: question.question,
         payload: {
             qid: questionId,
