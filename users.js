@@ -19,9 +19,14 @@ const add_answer = (userID, questionID, isCorrect) => {
 
 const get_user_stats = userID => {
     if (userID in users) {
-        return JSON.stringify(users[userID].answers);
+        const answers = users[userID].answers;
+        const num_correct = answers.filter(a => a.isCorrect).length;
+        const total = answers.length;
+
+        return "You answered correctly " + num_correct + " over " + total + " questions.";
+
     } else {
-        return "User not found.";
+        return "";
     }
 }
 
