@@ -110,46 +110,11 @@ const sendFeedback = (response, reply) =>  {
 
 // Handle text messages
 bot.on('message', (payload, reply) => {
-  /*
-  bot.getProfile(payload.sender.id, (err, profile) => {
-    if (err) {
-        console.log("Error to get profile: "+err);
-    }
-    let answer = computeAnswer(payload.message.text,profile);
-    reply(answer, (err) => {
-      if (err) {
-        console.log("Error when sending message answer: "+answer)
-      }
-      console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${answer}`)
-    });
-  });
-  */
   sendQuestion(reply);
 });
 
 // Handle postback messages
 bot.on('postback', (payload,reply) => {
-    /*
-   const responses = {
-      "correctionOK": ANS.CONV_SUBJECT,
-      "correctionBad": ANS.CONV_SUBJECT,
-      "sports": ANS.SPORT_Q,
-      "news": ANS.NEWS_Q,
-      "famousPeople": ANS.FAMOUS_PEOPLE_Q,
-      "subscriptionYes": ANS.FEEDBACK_R,
-      "subscriptionNo": ANS.BYE,
-      "none": ANS.DUMB
-   }
-   let response = responses.none;
-   if( in responses) {
-     response = responses[payload.postback.payload];
-   }
-   reply(response, (err) => {
-       if(err) {
-         console.log('Postback error sending: '+payload);
-       }
-   });
-   */
    const response = payload.postback.payload;
    sendFeedback(response, reply);
    sendQuestion(reply);
