@@ -102,7 +102,7 @@ bot.on('message', (payload, reply) => {
     });
   });
   */
-  sendResponse(reply);
+  sendQuestion(reply);
 });
 
 // Handle postback messages
