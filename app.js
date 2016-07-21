@@ -75,7 +75,7 @@ const sendQuestion = (reply) => {
     const question = questions[questionId];
     const response = buttonMessage(question.question,question.answers.map((a,i) => ({
         t: a,
-        p: "${questionId}_${i}"
+        p: ""+questionId+"_"+i
     })));
     reply(response, (err) => {
         if(err) {
