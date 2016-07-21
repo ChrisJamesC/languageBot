@@ -25,4 +25,4 @@ const get_user_stats = userID => {
     }
 }
 
-module.export = {add_user, add_answer, get_user_stats};
+module.exports = ({add_user, add_answer, get_user_stats});
