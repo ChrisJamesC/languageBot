@@ -5,6 +5,7 @@ const Bot = require('messenger-bot');
 const levDist = require("./levDist");
 // const ANS = require("./possibleAnswers");
 const questions = require("./questionList").questions;
+const users = require("./users");
 
 // Define the facebook bot
 let bot = new Bot({
@@ -84,7 +85,7 @@ const sendQuestion = (reply) => {
     });
 }
 
-const sendFeedback = (response, reply) =>  {
+const sendFeedback = (userID, response, reply) =>  {
    const arr = response.split("_");
    if(arr.length<2) {
        console.log("Error with response: "+response);
@@ -98,10 +99,25 @@ const sendFeedback = (response, reply) =>  {
    const question = questions[questionId];
    const correct = question.correct===answerId;
    const message = correct?
-        textMessage("You are correct.")
-       :textMessage("You are wrong. The correct answer was "+question.answers[question.correct]+".");
+                textMessage("You are correct."):
+                textMessage("You are wrong. The correct answer was "+question.answers[question.correct]+".");
 
-   reply(message, (err) => {
+    reply(message, (err) => {
+        if(err) {
+          console.log('Postback error sending: '+payload);
+        }
+    });
+
+    users.add_answer(userID, questionId, correct);
+
+}
+
+const sendStats = (userID, reply) => {
+    const user_stats = users.get_user_stats(userID);
+
+    const message = textMessage(user_stats);
+
+    reply(message, (err) => {
         if(err) {
           console.log('Postback error sending: '+payload);
         }
@@ -116,9 +132,10 @@ bot.on('message', (payload, reply) => {
 // Handle postback messages
 bot.on('postback', (payload,reply) => {
    const response = payload.postback.payload;
-   sendFeedback(response, reply);
+   const userID = payload.sender.id;
+   sendFeedback(userID, response, reply);
+   sendStats(userID, reply);
    sendQuestion(reply);
-
 });
 
 const port = process.env.PORT || 5000;
