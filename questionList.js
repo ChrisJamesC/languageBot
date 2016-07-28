@@ -47,7 +47,7 @@ questions = [
     {
         question: "_______ did you invite to your birthday party?",
         answers: ["Who", "Whom", "Whose"],
-        correct: 0
+        correct: 1
     }
 
 ]
