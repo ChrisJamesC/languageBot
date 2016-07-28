@@ -3,7 +3,6 @@
 const http = require('http');
 const Bot = require('messenger-bot');
 const levDist = require("./levDist");
-// const ANS = require("./possibleAnswers");
 const questions = require("./questionList").questions;
 const users = require("./users");
 
